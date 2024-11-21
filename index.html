@@ -30,7 +30,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
   </head>
   <body>
-    <a id="url" href="#"> <button>Click Me</button></a>
+     <button>Click Me</button>
 
     <script>
       // Ensure the Telegram WebApp is ready
@@ -39,15 +39,9 @@
       // Access the start_param safely
       const startParam = Telegram.WebApp.initDataUnsafe ? Telegram.WebApp.initDataUnsafe.start_param : null;
 
-      if (startParam) {
-        alert(startParam); // Alert the start parameter
-        document.getElementById("url").href = `https://t.me/qplayerbot?start=${startParam}`;
-      } else {
-        alert("Start parameter not found.");
-      }
-
       // Add event listener to close the Mini App on button click
       document.querySelector("button").addEventListener("click", function() {
+      Telegram.WebApp.openTelegramLink(startParam);
       Telegram.WebApp.close(); // Close the Mini App after opening the link
       });
     </script>
