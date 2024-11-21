@@ -41,7 +41,7 @@
 
       // Add event listener to close the Mini App on button click
       document.querySelector("button").addEventListener("click", function() {
-      Telegram.WebApp.openTelegramLink(startParam);
+      Telegram.WebApp.openTelegramLink(`https://t.me/qplayerbot?start=${startParam}`);
       Telegram.WebApp.close(); // Close the Mini App after opening the link
       });
     </script>
