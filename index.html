@@ -45,6 +45,13 @@
       } else {
         alert("Start parameter not found.");
       }
+
+      // Add event listener to close the Mini App on button click
+      document.querySelector("button").addEventListener("click", function() {
+        // Open the Telegram link and then close the WebApp
+        Telegram.WebApp.openTelegramLink(document.getElementById("url").href);
+        //Telegram.WebApp.close(); // Close the Mini App after opening the link
+      });
     </script>
   </body>
 </html>
