@@ -33,8 +33,7 @@
 
     <script>
       // Parse the URL parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get("id");
+      const id = window.Telegram.WebApp.initDataUnsafe.start_param
       alert(id)
       document.getElementById(
         "url"
