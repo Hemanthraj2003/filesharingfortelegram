@@ -32,12 +32,18 @@
     <a id="url" href="#"> <button>Click Me</button></a>
 
     <script>
-      // Parse the URL parameters
-      const id = window.Telegram.WebApp.initDataUnsafe.start_param
-      alert(id)
-      document.getElementById(
-        "url"
-      ).href = `https://t.me/qplayerbot?start=${id}`;
+      // Ensure the Telegram WebApp is ready
+      Telegram.WebApp.ready();
+
+      // Access the start_param safely
+      const startParam = Telegram.WebApp.initDataUnsafe ? Telegram.WebApp.initDataUnsafe.start_param : null;
+
+      if (startParam) {
+        alert(startParam); // Alert the start parameter
+        document.getElementById("url").href = `https://t.me/qplayerbot?start=${startParam}`;
+      } else {
+        alert("Start parameter not found.");
+      }
     </script>
   </body>
 </html>
