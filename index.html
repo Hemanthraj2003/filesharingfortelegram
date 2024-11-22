@@ -7,6 +7,7 @@
     <style>
       body {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -14,6 +15,24 @@
         font-family: Arial, sans-serif;
         background-color: #f9f9f9;
       }
+
+      #progress-container {
+        width: 50%;
+        height: 20px;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        display: none; /* Hidden initially */
+      }
+
+      #progress-bar {
+        height: 100%;
+        width: 0%;
+        background-color: #007bff;
+        transition: width 0.1s ease;
+      }
+
       button {
         padding: 10px 20px;
         font-size: 16px;
@@ -22,7 +41,9 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        display: none; /* Hidden initially */
       }
+
       button:hover {
         background-color: #0056b3;
       }
@@ -31,28 +52,61 @@
   </head>
   <body>
     <script type="text/javascript">
-	atOptions = {
-		'key' : 'a07ceb3724c2afcf425f7ad5d1a4b15a',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/a07ceb3724c2afcf425f7ad5d1a4b15a/invoke.js"></script>
-     <button>Click Me</button>
+      atOptions = {
+        key: "a07ceb3724c2afcf425f7ad5d1a4b15a",
+        format: "iframe",
+        height: 60,
+        width: 468,
+        params: {},
+      };
+    </script>
+    <script
+      type="text/javascript"
+      src="//www.highperformanceformat.com/a07ceb3724c2afcf425f7ad5d1a4b15a/invoke.js"
+    ></script>
+
+    <!-- Progress Bar -->
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <!-- Button -->
+    <button>Click Me</button>
 
     <script>
       // Ensure the Telegram WebApp is ready
       Telegram.WebApp.ready();
 
       // Access the start_param safely
-      const startParam = Telegram.WebApp.initDataUnsafe ? Telegram.WebApp.initDataUnsafe.start_param : null;
+      const startParam = Telegram.WebApp.initDataUnsafe
+        ? Telegram.WebApp.initDataUnsafe.start_param
+        : null;
+
+      // Show the progress bar and update it over 8 seconds
+      const progressBar = document.getElementById("progress-bar");
+      const progressContainer = document.getElementById("progress-container");
+      const button = document.querySelector("button");
+
+      progressContainer.style.display = "block"; // Show progress bar initially
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += 1.25; // Increment progress (8 seconds total)
+        progressBar.style.width = `${progress}%`;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          progressContainer.style.display = "none"; // Hide progress bar
+          button.style.display = "block"; // Show the button
+        }
+      }, 100); // Update every 100ms
 
       // Add event listener to close the Mini App on button click
-      document.querySelector("button").addEventListener("click", function() {
-      Telegram.WebApp.openTelegramLink(`https://t.me/qplayerbot?start=${startParam}`);
-      Telegram.WebApp.close(); // Close the Mini App after opening the link
+      button.addEventListener("click", function () {
+        Telegram.WebApp.openTelegramLink(
+          `https://t.me/qplayerbot?start=${startParam}`
+        );
+        Telegram.WebApp.close(); // Close the Mini App after opening the link
       });
     </script>
   </body>
